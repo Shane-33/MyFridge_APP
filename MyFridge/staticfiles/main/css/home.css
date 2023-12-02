@@ -1,0 +1,22 @@
+/* main/static/main/css/home.css */
+
+
+/* Add your styles here */
+
+.culinary-inspiration {
+    position: relative;
+}
+
+.welcome-login-section {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+}
+
+.container {
+    margin-top: 20px;
+    /* Add margin to separate from the culinary inspiration section */
+}

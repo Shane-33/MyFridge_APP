@@ -1,0 +1,14 @@
+<!-- recipes/templates/recipes/google_search.html -->
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-5">
+    <h2>Google Search</h2>
+    <form method="get" action="{% url 'google_search' %}">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="q" placeholder="Search on Google" aria-label="Search on Google" aria-describedby="search-btn" />
+            <button class="btn btn-outline-secondary" type="submit" id="search-btn">
+        Search
+      </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

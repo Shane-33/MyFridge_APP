@@ -1,0 +1,47 @@
+<!-- recipes/templates/recipes/recipe_moment.html -->
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-5">
+    {% if user.is_authenticated %}
+    <h2 class="mb-4">{{ recipe.heading }} Moments</h2>
+
+    <!-- Post a new moment form -->
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <textarea name="caption" placeholder="Add a caption"></textarea>
+        <input type="file" name="image" />
+        <button type="submit">Post Moment</button>
+    </form>
+
+    <!-- Moments list -->
+    {% for moment in moments %}
+    <div class="moment">
+        {% if moment.image %}
+        <img src="{{ moment.image.url }}" alt="Moment Image" /> {% endif %}
+        <p>{{ moment.caption }}</p>
+        <p>{{ moment.user.username }} - {{ moment.created_at }}</p>
+
+        <!-- Comments section -->
+        <div class="comments">
+            {% for comment in moment.comment_set.all %}
+            <p>{{ comment.user.username }}: {{ comment.text }}</p>
+            {% endfor %}
+        </div>
+
+        <!-- Like button -->
+        <form method="post" action="{% url 'like_moment' moment.id %}">
+            {% csrf_token %}
+            <button type="submit">Like</button>
+        </form>
+
+        <!-- Add a comment form -->
+        <form method="post" action="{% url 'comment_moment' moment.id %}">
+            {% csrf_token %}
+            <textarea name="text" placeholder="Add a comment"></textarea>
+            <button type="submit">Post Comment</button>
+        </form>
+    </div>
+    {% endfor %} {% else %}
+    <p>Please log in to view recipe moments.</p>
+    {% endif %}
+</div>
+{% endblock %}

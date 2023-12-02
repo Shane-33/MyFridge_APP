@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+
+<!-- main/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to MyFridge</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main/css/home.css' %}" />
+    <!-- Add other head elements if needed -->
+</head>
+
+<body>
+    <header>
+        <h1>Welcome to MyFridge!</h1>
+    </header>
+
+    {% block content %}
+    <!-- Combined Section for Welcome and Culinary Inspiration -->
+    <div class="combined-section">
+        <!-- Welcome to MyFridge and Login Section -->
+        <div class="welcome-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h2>Welcome to MyFridge!</h2>
+                        <p class="lead">
+                            Discover delicious recipes using ingredients from your fridge.
+                            <!-- Add any additional content or features here -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carousel -->
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{% static 'main/carousal1.jpeg' %}" class="d-block w-100" alt="Toggle Image 1" />
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Instant Recipe Recommendations</h5>
+                        <p>This Website provides its Users with instant Food Recommendations</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'main/carousal2.jpeg' %}" class="d-block w-100" alt="Toggle Image 2" />
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Beneficial for Foodies</h5>
+                        <p>Helpful for all people interested in making new food items</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'main/carousal3.avif' %}" class="d-block w-100" alt="Toggle Image 3" />
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Veg/Non-Veg Cuisines</h5>
+                        <p>Recommends food according to your choice!</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <!-- Three Centered Toggle Images -->
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <img src="{% static 'main/carousal1.jpeg' %}" class="img-fluid toggle-image" alt="Toggle Image 1" data-toggle="1" />
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="{% static 'main/carousal2.jpeg' %}" class="img-fluid toggle-image" alt="Toggle Image 2" data-toggle="2" />
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="{% static 'main/carousal3.avif' %}" class="img-fluid toggle-image" alt="Toggle Image 3" data-toggle="3" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var carousel = new bootstrap.Carousel(document.getElementById('carouselExampleCaptions'), {
+                interval: false, // Disable auto sliding
+            });
+
+            var toggleImages = document.querySelectorAll('.toggle-image');
+            toggleImages.forEach(function(img) {
+                img.addEventListener('click', function() {
+                    var index = parseInt(this.dataset.toggle);
+                    carousel.to(index - 1);
+                });
+            });
+        });
+    </script>
+
+    <!-- Culinary Inspiration Section
+        <div class="culinary-inspiration">
+            <img src="{% static 'main/culinary_bg.avif' %}" class="w-full h-full" alt="Culinary Inspiration" />
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-center text-white">
+                <h1 class="lg:text-6xl md:text-4xl sm:text-2xl font-extrabold font-mono">
+                    Discover a World of Culinary Inspiration
+                </h1>
+                <h3 class="lg:text-4xl md:text-2xl sm:text-2xl font-extrabold text-gray-100 mt-10 shadow-xl font-mono">
+                    Experience AI-Powered Recipe Recommendations
+                </h3>
+                <button class="lg:mt-4 md:mt-2 sm:mt-1 lg:px-6 md:px-4 sm:px-2 lg:py-3 md:py-2 sm:text-sm bg-orange-500 text-white font-semibold rounded hover:bg-orange-700">
+            <router-link :to="'/ai/suggestions'"> Explore </router-link>
+          </button>
+            </div>
+        </div> -->
+
+    <!-- Ingredient Categories -->
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h2 class="category-heading">Ingredient Categories</h2>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-4">
+            <section class="category">
+                <h3>Fruits</h3>
+                <div class="ingredient-list">
+                    <!-- List of fruits or links to recipes using fruits -->
+                    <a href="#">Apple</a>
+                    <a href="#">Banana</a>
+                    <a href="#">Orange</a>
+                    <a href="#">Kiwi</a>
+                    <a href="#">Mango</a>
+                    <a href="#">Pineapple</a>
+                    <a href="#">Strawberry</a>
+                    <a href="#">Grape</a>
+                    <a href="#">Peach</a>
+                    <a href="#">Blueberry</a>
+                </div>
+            </section>
+        </div>
+        <!-- Add more sections for different ingredient categories -->
+
+        <div class="col-md-4">
+            <section class="category">
+                <h3>Vegetables</h3>
+                <div class="ingredient-list">
+                    <!-- List of vegetables or links to recipes using vegetables -->
+                    <a href="#">Carrot</a>
+                    <a href="#">Spinach</a>
+                    <a href="#">Tomato</a>
+                    <a href="#">Broccoli</a>
+                    <a href="#">Onion</a>
+                    <a href="#">Garlic</a>
+                    <a href="#">Bell Pepper</a>
+                    <a href="#">Lettuce</a>
+                    <a href="#">Cucumber</a>
+                    <a href="#">Potato</a>
+                </div>
+            </section>
+        </div>
+
+        <div class="col-md-4">
+            <section class="category">
+                <h3>Dairy</h3>
+                <div class="ingredient-list">
+                    <!-- List of dairy ingredients -->
+                    <a href="#">Milk</a>
+                    <a href="#">Cheese</a>
+                    <a href="#">Yogurt</a>
+                    <a href="#">Butter</a>
+                    <a href="#">Cream</a>
+                    <a href="#">Paneer</a>
+                    <a href="#">Ice Cream</a>
+                    <a href="#">Sour Cream</a>
+                    <a href="#">Ghee</a>
+                    <a href="#">Skim Milk</a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Image Grid -->
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h2 class="category-heading">Hot Dishes</h2>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-4">
+            <div class="recipe-card">
+                <img src="{% static 'main/recipe1.png' %}" class="img-fluid" alt="Recipe 1" />
+                <h4>Delicious Pasta</h4>
+                <p>A classic pasta dish with a rich tomato and basil sauce.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="recipe-card">
+                <img src="{% static 'main/recipe2.png' %}" class="img-fluid" alt="Recipe 2" />
+                <h4>Grilled Salmon</h4>
+                <p>Perfectly grilled salmon fillet served with lemon and herbs.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="recipe-card">
+                <img src="{% static 'main/recipe3.png' %}" class="img-fluid" alt="Recipe 3" />
+                <h4>Fruit Salad</h4>
+                <p>Refreshing fruit salad with a mix of seasonal fruits.</p>
+            </div>
+            <!-- Add more recipe cards as needed -->
+        </div>
+    </div>
+    </div>
+    {% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+
+<div class="container mt-5">
+    <!-- Section 1: Add Recipe -->
+    <section id="add-recipe" class="mb-4">
+        <h2 class="mb-4">Add Recipe</h2>
+        <form method="post" action="{% url 'recipe_create' %}">
+            {% csrf_token %} {{ recipe_form.as_p }}
+            <button type="submit" class="btn btn-primary">Add Recipe</button>
+        </form>
+    </section>
+
+    <!-- Section 2: Search Bar -->
+    <section id="search-bar" class="mb-4">
+        <form method="get" action="{% url 'google_search' %}">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="q" placeholder="Search on Google" aria-label="Search on Google" aria-describedby="search-btn" />
+                <button class="btn btn-outline-secondary" type="submit" id="search-btn">
+          Search
+        </button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Section 3: Recipe Moment -->
+    <section id="user-profile" class="mb-4">
+        <h2 class="mb-4">Recipe Moment</h2>
+        {# Your user profile content goes here, possibly fetched from the user object #}
+
+        <!-- Recipe Moments -->
+        {% with moments=recipe.moment_set.all %} {% if moments %}
+        <h4>Moments</h4>
+        <ul>
+            {% for moment in moments %}
+            <li>{{ moment.caption }} - {{ moment.created_at }}</li>
+            <!-- Add more details or styling as needed -->
+            {% endfor %}
+        </ul>
+        {% endif %} {% endwith %}
+
+        <!-- Actions -->
+        <div class="recipe-actions">
+            <button type="button" class="btn btn-primary">Upload Image</button>
+            <button type="button" class="btn btn-secondary">Comment</button>
+            <button type="button" class="btn btn-info">Rate</button>
+            <button type="button" class="btn btn-success">Like</button>
+            <button type="button" class="btn btn-warning">Post</button>
+            <button type="button" class="btn btn-danger">Repost</button>
+        </div>
+    </section>
+
+    <!-- Example: -->
+    <p>Welcome, {{ user.username }}!</p>
+
+    <!-- Link to Recipe Moment page -->
+    <a href="{% url 'recipe_moment' %}" class="btn btn-primary">View Recipe Moments</a
+  >
+</div>
+
+<!-- Section 4: Images -->
+<section id="Images">
+  <h2 class="mb-4">What's in your Fridge...?</h2>
+  <div class="image-container row">
+    <img
+      src="{% static 'main/dish1.png' %}"
+      alt="Image 1"
+      class="col-md-4 img-fluid"
+    />
+    <img
+      src="{% static 'main/dish2.png' %}"
+      alt="Image 2"
+      class="col-md-4 img-fluid"
+    />
+    <img
+      src="{% static 'main/dish3.png' %}"
+      alt="Image 3"
+      class="col-md-4 img-fluid"
+    />
+  </div>
+</section>
+
+{% endblock %}

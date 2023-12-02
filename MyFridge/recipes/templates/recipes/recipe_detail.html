@@ -1,0 +1,46 @@
+<!-- recipes/templates/recipes/recipe_detail.html -->
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-5">
+    <h2>{{ recipe.heading }}</h2>
+
+    <p>Ingredients: {{ recipe.ingredients }}</p>
+    <p>Category: {{ recipe.category }}</p>
+    <p>Tags: {{ recipe.tags.all|join:", " }}</p>
+    <p>Average Rating: {{ recipe.average_rating }}</p>
+    <p>Number of Reviews: {{ recipe.reviews.count }}</p>
+
+    {# Display existing reviews #}
+    <h3>Reviews:</h3>
+    <ul>
+        {% for review in recipe.reviews.all %}
+        <li>{{ review.user_name }}: {{ review.comment }}</li>
+        {% endfor %}
+    </ul>
+
+    {# Add a button to get recommendations #}
+    <form method="post" action="{% url 'get_recipe_suggestions' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Get Recommendations</button>
+    </form>
+
+    <!-- Rating Form -->
+    {# Add a form for rating the recipe #}
+    <form method="post" action="{% url 'rate_recipe' pk=recipe.pk %}">
+        {% csrf_token %}
+        <label for="rating">Rate this recipe:</label>
+        <input type="number" name="rating" min="1" max="5" required />
+        <button type="submit">Submit Rating</button>
+    </form>
+
+    <!-- Review Form -->
+    {# Add a form for writing a review #}
+    <form method="post" action="{% url 'write_review' pk=recipe.pk %}">
+        {% csrf_token %}
+        <label for="comment">Write a review:</label>
+        <textarea name="comment" rows="4" required></textarea>
+        <button type="submit">Submit Review</button>
+    </form>
+
+    <a href="{% url 'recipe_list' %}">Back to Recipe List</a>
+</div>
+{% endblock %}
